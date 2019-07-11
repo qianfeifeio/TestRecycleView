@@ -1,5 +1,6 @@
 package com.example.recycleview;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,9 +18,10 @@ import java.util.List;
  */
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
     private List<Fruit> mFruitList;
-
-    public FruitAdapter(List<Fruit> fruitList) {
+    Context mContext;
+    public FruitAdapter(Context mContext,List<Fruit> fruitList) {
         mFruitList = fruitList;
+        this.mContext = mContext;
     }
 
     @NonNull
@@ -33,7 +35,14 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         Fruit fruit = mFruitList.get(position);
-        viewHolder.fruitImage.setImageResource(fruit.getImageId());
+//        viewHolder.fruitImage.setImageResource(fruit.getImageId());
+
+        GlideApp.with(mContext).asBitmap()
+                .load("http://b.hiphotos.baidu.com/album/pic/item/caef76094b36acafe72d0e667cd98d1000e99c5f.jpg?psign=e72d0e667cd98d1001e93901213fb80e7aec54e737d1b867")
+                .placeholder(R.drawable.ic_default).error(R.drawable.ic_default).circleCrop().into(viewHolder.fruitImage);
+
+
+
         viewHolder.fruitName.setText(fruit.getName());
 
 

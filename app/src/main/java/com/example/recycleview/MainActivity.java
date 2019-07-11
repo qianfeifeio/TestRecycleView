@@ -3,13 +3,16 @@ package com.example.recycleview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * RecyclerView：常见的几种用法
+ */
 public class MainActivity extends AppCompatActivity {
     private List<Fruit> fruitList = new ArrayList<>();
     FruitAdapter fruitAdapter;
@@ -21,16 +24,16 @@ public class MainActivity extends AppCompatActivity {
         initFruits(); // 初始化水果数据
         initFruits2(); // 初始化水果数据《瀑布流：名字长度不一样，更好展示不对齐》
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        
-        //线性布局
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //不写默认垂直布局
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        //水平布局
+
+//        //线性布局
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        //不写默认垂直布局
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        //水平布局
 //        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         //表格布局
-//        GridLayoutManager layoutManager = new GridLayoutManager(this,3);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,3);
         //瀑布流（垂直方向）
 //        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL));
 
-        fruitAdapter = new FruitAdapter(fruitList);
+        fruitAdapter = new FruitAdapter(this,fruitList);
         recyclerView.setAdapter(fruitAdapter);
 
         //谷歌提供了一个默认的item删除添加的动画
